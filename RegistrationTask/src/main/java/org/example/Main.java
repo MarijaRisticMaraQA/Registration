@@ -45,6 +45,7 @@ public class Main {
 		By logoutButton = cssSelector(".ico-logout");
 		By login = cssSelector(".ico-login");
 		By loginButton = cssSelector(".login-button");
+		By continueButton = cssSelector(".register-continue-button");
 
 		driver = new ChromeDriver();
 		driver.get("https://demowebshop.tricentis.com/");
@@ -65,8 +66,8 @@ public class Main {
 		String expectedText = "Your registration completed";
 		assertEquals(actualText, expectedText, "Text is not matching.");
 
-		WebElement continueButton = driver.findElement(By.cssSelector(".register-continue-button"));
-		assertTrue(continueButton.isDisplayed(), "Continue button is not present");
+		WebElement continueBtn = getElement(continueButton);
+		assertTrue(continueBtn.isDisplayed(), "Continue button is not present");
 
 		WebElement loggedInUser = driver.findElement(By.cssSelector(".header-links .account"));
 		String actualLoggedInUser = loggedInUser.getText();
