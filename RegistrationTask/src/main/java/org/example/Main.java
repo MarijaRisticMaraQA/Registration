@@ -49,6 +49,7 @@ public class Main {
 		driver = new ChromeDriver();
 		driver.get("https://demowebshop.tricentis.com/");
 
+		// Registration
 		getElement(goToRegister).click();
 
 		clickOnElement(genderFemale);
@@ -58,7 +59,6 @@ public class Main {
 		typeInput(password, "blabla1");
 		typeInput(confirmPassword, "blabla1");
 
-		// Registration
 		clickOnElement(registerButton);
 
 		String actualText = getElement(successRegistrationText).getText();
