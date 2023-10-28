@@ -27,10 +27,7 @@ public class Cart extends BaseTest {
 		Thread.sleep(1000);
 		clickOnElement(topCart);
 
-		double pricesSum = sumPrices();
-		double shockTotalPrice = Double.parseDouble(getElement(totalPrice).getText());
-
-		assertEquals(pricesSum, shockTotalPrice, "Price sum is not matching");
+		assertPricesSum();
 	}
 
 	public void addBooksToCart() throws InterruptedException {
@@ -54,12 +51,15 @@ public class Cart extends BaseTest {
 		clickOnElement(addToCartButtonNotebook);
 	}
 
-	public double sumPrices() {
+	public void assertPricesSum() {
 
 		double firstPrice = Double.parseDouble(getElement(priceOne).getText());
 		double secondPrice = Double.parseDouble(getElement(priceTwo).getText());
 		double thirdPrice = Double.parseDouble(getElement(priceThree).getText());
 
-		return firstPrice + secondPrice + thirdPrice;
+		double pricesSum = firstPrice + secondPrice + thirdPrice;
+		double shockTotalPrice = Double.parseDouble(getElement(totalPrice).getText());
+
+		assertEquals(pricesSum, shockTotalPrice, "Price sum is not matching");
 	}
 }
