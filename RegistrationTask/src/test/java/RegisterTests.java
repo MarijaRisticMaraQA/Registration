@@ -1,9 +1,6 @@
-package org.example;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.openqa.selenium.By.cssSelector;
@@ -11,46 +8,27 @@ import static org.openqa.selenium.By.id;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class Main {
+public class RegisterTests extends BaseTest {
 
-	static WebDriver driver;
+	String emailText = randomAlphabetic(8) + "@blabla.com";
+	By goToRegister = cssSelector(".ico-register");
+	By genderFemale = id("gender-female");
+	By firstName = id("FirstName");
+	By lastName = id("LastName");
+	By email = id("Email");
+	By password = id("Password");
+	By confirmPassword = id("ConfirmPassword");
+	By registerButton = id("register-button");
+	By successRegistrationText = cssSelector(".page-body");
+	By logoutButton = cssSelector(".ico-logout");
+	By login = cssSelector(".ico-login");
+	By loginButton = cssSelector(".login-button");
+	By continueButton = cssSelector(".register-continue-button");
 
-	public static WebElement getElement(By locator) {
+	@Test
+	public void registerTest() {
 
-		return driver.findElement(locator);
-	}
-
-	public static void typeInput(By locator, String text) {
-
-		getElement(locator).sendKeys(text);
-	}
-
-	public static void clickOnElement(By locator) {
-
-		driver.findElement(locator).click();
-	}
-
-	public static void main(String[] args) {
-
-		String emailText = randomAlphabetic(8) + "@blabla.com";
-		By goToRegister = cssSelector(".ico-register");
-		By genderFemale = id("gender-female");
-		By firstName = id("FirstName");
-		By lastName = id("LastName");
-		By email = id("Email");
-		By password = id("Password");
-		By confirmPassword = id("ConfirmPassword");
-		By registerButton = id("register-button");
-		By successRegistrationText = cssSelector(".page-body");
-		By logoutButton = cssSelector(".ico-logout");
-		By login = cssSelector(".ico-login");
-		By loginButton = cssSelector(".login-button");
-		By continueButton = cssSelector(".register-continue-button");
-
-		driver = new ChromeDriver();
-		driver.get("https://demowebshop.tricentis.com/");
-
-		// Registration
+		//Register
 		getElement(goToRegister).click();
 
 		clickOnElement(genderFemale);
