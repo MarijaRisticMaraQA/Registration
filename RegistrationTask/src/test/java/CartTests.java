@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
-public class Cart extends BaseTest {
+public class CartTests extends BaseTest {
 
 	By booksSection = By.cssSelector(".top-menu > li:nth-child(1) > a[href*='books']");
 	By notebookInDropdown = By.cssSelector(".top-menu .sublist.firstLevel > li:nth-child(2) > a[href*='notebooks']");
@@ -30,7 +30,7 @@ public class Cart extends BaseTest {
 		assertPricesSum();
 	}
 
-	public void addBooksToCart() throws InterruptedException {
+	private void addBooksToCart() throws InterruptedException {
 
 		clickOnElement(booksSection);
 		Thread.sleep(1000);
@@ -39,7 +39,7 @@ public class Cart extends BaseTest {
 		clickOnElement(addToCartButtonBookTwo);
 	}
 
-	public void addNotebookToCart() throws InterruptedException {
+	private void addNotebookToCart() throws InterruptedException {
 
 		WebElement computerSectionDropdown = driver.findElement(By.cssSelector(".top-menu > li:nth-child(2) > a[href*='computers']"));
 		Actions action = new Actions(driver);
@@ -51,7 +51,7 @@ public class Cart extends BaseTest {
 		clickOnElement(addToCartButtonNotebook);
 	}
 
-	public void assertPricesSum() {
+	private void assertPricesSum() {
 
 		double firstPrice = Double.parseDouble(getElement(priceOne).getText());
 		double secondPrice = Double.parseDouble(getElement(priceTwo).getText());
