@@ -3,7 +3,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertEquals;
+import java.util.List;
+
+import static java.lang.Double.parseDouble;
+import static org.testng.Assert.assertTrue;
 
 public class CartTests extends BaseTest {
 
@@ -13,9 +16,11 @@ public class CartTests extends BaseTest {
 	By addToCartButtonBookTwo = By.cssSelector("div[data-productid='45'] > div:nth-child(2) > div:nth-child(4) > div:nth-child(2) > input");
 	By addToCartButtonNotebook = By.cssSelector("div[data-productid='31'] > div:nth-child(2) > div:nth-child(4) > div:nth-child(2) > input");
 	By topCart = By.cssSelector("li[id='topcartlink'] .ico-cart");
-	By priceOne = By.xpath("//tr[@class='cart-item-row'][1]//td[@class='subtotal nobr end']//span[2]");
-	By priceTwo = By.xpath("//tr[@class='cart-item-row'][2]//td[@class='subtotal nobr end']//span[2]");
-	By priceThree = By.xpath("//tr[@class='cart-item-row'][3]//td[@class='subtotal nobr end']//span[2]");
+//	By priceOne = By.xpath("//tr[@class='cart-item-row'][1]//td[@class='subtotal nobr end']//span[2]");
+//	By priceTwo = By.xpath("//tr[@class='cart-item-row'][2]//td[@class='subtotal nobr end']//span[2]");
+//	By priceThree = By.xpath("//tr[@class='cart-item-row'][3]//td[@class='subtotal nobr end']//span[2]");
+	By prices = By.xpath("//tr[@class='cart-item-row']//td[@class='subtotal nobr end']//span[2]");
+
 	By totalPrice = By.cssSelector(".order-total");
 
 	@Test
@@ -27,7 +32,7 @@ public class CartTests extends BaseTest {
 		Thread.sleep(1000);
 		clickOnElement(topCart);
 
-		assertPricesSum();
+		assertTrue(assertPricesSumAreEqual());
 	}
 
 	private void addBooksToCart() throws InterruptedException {
@@ -51,15 +56,25 @@ public class CartTests extends BaseTest {
 		clickOnElement(addToCartButtonNotebook);
 	}
 
-	private void assertPricesSum() {
+	private Boolean assertPricesSumAreEqual() {
 
-		double firstPrice = Double.parseDouble(getElement(priceOne).getText());
-		double secondPrice = Double.parseDouble(getElement(priceTwo).getText());
-		double thirdPrice = Double.parseDouble(getElement(priceThree).getText());
+		double sum = 0;
 
-		double pricesSum = firstPrice + secondPrice + thirdPrice;
-		double shockTotalPrice = Double.parseDouble(getElement(totalPrice).getText());
+		List<WebElement> pricesList = driver.findElements(prices);
 
-		assertEquals(pricesSum, shockTotalPrice, "Price sum is not matching");
+		for (WebElement price : pricesList) {
+			sum += parseDouble(price.getText());
+		}
+
+		return parseDouble(driver.findElement(totalPrice).getText()) == sum;
+
+//		double firstPrice = Double.parseDouble(getElement(priceOne).getText());
+//		double secondPrice = Double.parseDouble(getElement(priceTwo).getText());
+//		double thirdPrice = Double.parseDouble(getElement(priceThree).getText());
+//
+//		double pricesSum = firstPrice + secondPrice + thirdPrice;
+//		double shockTotalPrice = Double.parseDouble(getElement(totalPrice).getText());
+//
+//		assertEquals(pricesSum, shockTotalPrice, "Price sum is not matching");
 	}
 }
